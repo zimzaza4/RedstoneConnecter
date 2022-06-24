@@ -1,12 +1,18 @@
 package me.zimzaza4.redstoneconnector;
 
+import com.sun.tools.javac.util.Names;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import me.zimzaza4.redstoneconnector.remote.RemoteController;
+import me.zimzaza4.redstoneconnector.remote.RemoteExecuteBlock;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+
+import java.util.Locale;
 
 public class Main extends JavaPlugin implements SlimefunAddon {
 
@@ -29,6 +35,18 @@ public class Main extends JavaPlugin implements SlimefunAddon {
         });
         item.setHidden(true);
         item.register(this);
+
+        new RemoteController(Items.group, Items.REMOTE_CONTROLLER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+                null, new ItemStack(Material.REPEATER), null,
+                new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.REDSTONE),
+                null,null,null
+        }, 60).register(this);
+
+        new RemoteExecuteBlock(Items.group, Items.REMOTE_EXECUTE_BLOCK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[]{
+                null, new ItemStack(Material.ENDER_EYE), null,
+                new ItemStack(Material.REDSTONE_TORCH), new ItemStack(Material.IRON_BLOCK), new ItemStack(Material.REDSTONE),
+                null, new ItemStack(Material.ENDER_PEARL), null
+        }).register(this);
     }
 
     @Override
@@ -51,4 +69,8 @@ public class Main extends JavaPlugin implements SlimefunAddon {
         return instance;
     }
 
+    
+    public static NamespacedKey key(String key){
+        return new NamespacedKey(instance(), key.toUpperCase(Locale.ROOT));
+    }
 }
