@@ -1,5 +1,7 @@
 package me.zimzaza4.redstoneconnector.remote;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
+import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -41,7 +43,8 @@ public class RemoteController extends SlimefunItem {
                     if (block.isPresent()) {
 
                         Block b = block.get();
-                        if (BlockStorage.check(b, Items.REMOTE_EXECUTE_BLOCK.getItemId())) {
+                        SlimefunBlockData data = StorageCacheUtils.getBlock(b.getLocation());
+                        if (data != null && data.getSfId().equals(Items.REMOTE_CONTROLLER.getItemId())) {
                             Location loc = b.getLocation();
                             int x = loc.getBlockX();
                             int y = loc.getBlockY();
@@ -67,7 +70,8 @@ public class RemoteController extends SlimefunItem {
                                 return;
                             }
                             Block b = location.getBlock();
-                            if (BlockStorage.check(b, Items.REMOTE_EXECUTE_BLOCK.getItemId())) {
+                            SlimefunBlockData data = StorageCacheUtils.getBlock(b.getLocation());
+                            if (data != null && data.getSfId().equals(Items.REMOTE_EXECUTE_BLOCK.getItemId())) {
                                 b.setType(Material.REDSTONE_BLOCK, true);
                                 new BukkitRunnable() {
                                     @Override

@@ -55,9 +55,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Slimefun</groupId>
+            <groupId>com.github.SlimefunGuguProject</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>RC-28</version>
+            <version>b39097e015</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
